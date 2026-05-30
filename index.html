@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Banco · Café &amp; Bistro · Doncaster</title>
+<meta name="description" content="Banco Café &amp; Bistro — brunch, afternoon tea and cocktails inside a Victorian bank on St Sepulchre Gate, Doncaster. Open Mon–Sat 9–4, Sun 10–4.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1A1F1A;
+    --ink-soft:#2C3329;
+    --paper:#F2EADA;
+    --paper-deep:#E8DDC6;
+    --brass:#B08240;
+    --brass-bright:#C99B5A;
+    --vault:#243A2E;
+    --wine:#6F2A2B;
+    --rule:rgba(26,31,26,.18);
+    --display:"DM Serif Display", "Cormorant Garamond", Georgia, serif;
+    --body:"DM Sans", ui-sans-serif, system-ui, sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:clamp(15.5px, 0.65vw + 14px, 17.5px);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  /* paper grain */
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    pointer-events:none;
+    z-index:1;
+    opacity:.06;
+    mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0 0.06  0 0 0 .9 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3,h4{font-family:var(--display);font-weight:400;letter-spacing:-.01em}
+  h1{text-wrap:balance}
+  p{text-wrap:pretty;hyphens:auto}
+
+  .wrap{max-width:1240px;margin:0 auto;padding:0 clamp(20px, 4vw, 56px);position:relative;z-index:2}
+
+  /* ─── NAV ─────────────────────────────── */
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:clamp(18px,2.2vw,28px) 0;
+    border-bottom:1px solid var(--rule);
+  }
+  .nav__mark{
+    font-family:var(--display);
+    font-size:clamp(20px,1.6vw,26px);
+    letter-spacing:.02em;
+  }
+  .nav__mark sup{font-size:.42em;letter-spacing:.18em;text-transform:uppercase;margin-left:.4em;color:var(--brass);position:relative;top:-.2em;font-family:var(--body);font-weight:500}
+  .nav__links{display:none;gap:clamp(18px,2.4vw,34px);font-size:.86rem;letter-spacing:.04em;text-transform:uppercase;font-weight:500}
+  .nav__links a{position:relative;padding:.2em 0}
+  .nav__links a::after{
+    content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:var(--brass);
+    transform:scaleX(0);transform-origin:left;transition:transform .35s ease;
+  }
+  .nav__links a:hover::after{transform:scaleX(1)}
+  .nav__call{
+    font-family:var(--display);font-size:clamp(15px,1.1vw,18px);
+    border-bottom:1px solid var(--brass);padding-bottom:2px;
+  }
+  @media (min-width:780px){.nav__links{display:flex}}
+
+  /* ─── STATUS PILL (sticky) ─── */
+  .status{
+    position:fixed;right:clamp(14px,2vw,28px);bottom:clamp(14px,2vw,28px);
+    z-index:30;
+    background:var(--ink);color:var(--paper);
+    font-family:var(--body);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;
+    padding:.65rem 1rem .6rem;
+    border-radius:999px;
+    box-shadow:0 8px 28px -10px rgba(26,31,26,.45);
+    display:inline-flex;align-items:center;gap:.55rem;
+  }
+  .status__dot{width:7px;height:7px;border-radius:50%;background:var(--brass-bright);box-shadow:0 0 0 0 rgba(201,155,90,.6);animation:pulse 2.4s ease-out infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(201,155,90,.55)}70%{box-shadow:0 0 0 10px rgba(201,155,90,0)}100%{box-shadow:0 0 0 0 rgba(201,155,90,0)}}
+
+  /* ─── HERO ─────────────────────────── */
+  .hero{padding:clamp(40px,7vw,90px) 0 clamp(36px,5vw,64px)}
+  .hero__line{
+    display:flex;justify-content:space-between;align-items:flex-end;gap:1.5rem;
+    font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);
+    margin-bottom:clamp(20px,2.6vw,36px);font-weight:500;
+  }
+  .hero__line span{display:inline-flex;align-items:center;gap:.6rem}
+  .hero__line .pip{width:5px;height:5px;background:var(--brass);border-radius:50%}
+  .hero__masthead{
+    font-family:var(--display);
+    font-size:clamp(5rem, 19vw, 17rem);
+    line-height:.82;
+    letter-spacing:-.045em;
+    margin-bottom:clamp(18px,2.5vw,34px);
+    color:var(--ink);
+    position:relative;
+  }
+  .hero__masthead em{font-style:italic;color:var(--vault);font-weight:400}
+  .hero__rule{
+    display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1.25rem;
+    margin-bottom:clamp(28px,3.6vw,52px);
+  }
+  .hero__rule::before,.hero__rule::after{content:"";height:1px;background:var(--brass)}
+  .hero__rule span{
+    font-family:var(--display);font-style:italic;
+    font-size:clamp(1.05rem,1.1vw + .6rem,1.5rem);
+    color:var(--vault);
+  }
+  .hero__grid{display:grid;grid-template-columns:1fr;gap:clamp(28px,4vw,56px)}
+  @media (min-width:880px){.hero__grid{grid-template-columns:1.1fr .9fr}}
+  .hero__lede{
+    font-family:var(--display);
+    font-size:clamp(1.6rem, 2.4vw + .4rem, 2.6rem);
+    line-height:1.15;
+    letter-spacing:-.012em;
+    color:var(--ink);
+  }
+  .hero__lede em{font-style:italic;color:var(--vault)}
+  .hero__col{
+    border-top:1px solid var(--rule);padding-top:1.1rem;
+    column-count:1;font-size:1rem;line-height:1.65;color:var(--ink-soft);
+  }
+  .hero__col p + p{margin-top:.9em}
+  .hero__cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.6rem}
+  .btn{
+    font-family:var(--body);font-weight:500;font-size:.92rem;
+    letter-spacing:.08em;text-transform:uppercase;
+    padding:.95em 1.5em .9em;
+    border:1px solid var(--ink);background:var(--ink);color:var(--paper);
+    transition:background .25s ease,color .25s ease,transform .25s ease;
+    cursor:pointer;display:inline-flex;align-items:center;gap:.55rem;
+  }
+  .btn:hover{background:var(--vault);transform:translateY(-2px)}
+  .btn--ghost{background:transparent;color:var(--ink)}
+  .btn--ghost:hover{background:var(--ink);color:var(--paper)}
+  .btn .arr{display:inline-block;transition:transform .3s ease}
+  .btn:hover .arr{transform:translateX(4px)}
+
+  /* ─── MARQUEE ─────────── */
+  .ticker{
+    border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+    background:var(--paper-deep);
+    overflow:hidden;
+    padding:.95rem 0;
+    position:relative;z-index:2;
+  }
+  .ticker__track{
+    display:flex;gap:3rem;white-space:nowrap;
+    font-family:var(--display);font-size:clamp(1rem,1.1vw + .4rem,1.45rem);
+    color:var(--ink);
+    animation:scroll 42s linear infinite;
+    width:max-content;
+  }
+  .ticker__track span{display:inline-flex;align-items:center;gap:3rem}
+  .ticker__track i{font-style:normal;color:var(--brass);font-size:.7em;position:relative;top:-.15em}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+  .ticker:hover .ticker__track{animation-play-state:paused}
+
+  /* ─── SECTIONS / SLABS ──────────── */
+  section{padding:clamp(60px,8vw,110px) 0;position:relative;z-index:2}
+  .eyebrow{
+    font-family:var(--body);font-size:.78rem;font-weight:500;
+    letter-spacing:.24em;text-transform:uppercase;
+    color:var(--brass);margin-bottom:1.4rem;
+    display:inline-flex;align-items:center;gap:.7rem;
+  }
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--brass)}
+  h2.section__title{
+    font-size:clamp(2.4rem,4.4vw + .5rem,5rem);
+    line-height:.95;letter-spacing:-.025em;
+    margin-bottom:clamp(28px,3vw,44px);max-width:18ch;
+  }
+  h2.section__title em{font-style:italic;color:var(--vault)}
+
+  /* what's on — editorial split */
+  .whats{}
+  .whats__intro{display:grid;grid-template-columns:1fr;gap:1.5rem;align-items:end;margin-bottom:clamp(36px,4vw,56px)}
+  @media (min-width:860px){.whats__intro{grid-template-columns:1fr .9fr}}
+  .whats__intro p{font-size:1.08rem;color:var(--ink-soft);max-width:46ch}
+  .whats__grid{display:grid;grid-template-columns:1fr;gap:2px;background:var(--rule)}
+  @media (min-width:760px){.whats__grid{grid-template-columns:repeat(3,1fr)}}
+  .whats__card{
+    background:var(--paper);
+    padding:clamp(24px,2.6vw,36px) clamp(22px,2.2vw,32px) clamp(28px,3vw,40px);
+    display:flex;flex-direction:column;gap:.9rem;
+    position:relative;
+    transition:background .35s ease;
+  }
+  .whats__card:hover{background:var(--paper-deep)}
+  .whats__num{
+    font-family:var(--display);font-size:.95rem;font-style:italic;color:var(--brass);
+  }
+  .whats__card h3{
+    font-size:clamp(1.8rem,2.2vw + .5rem,2.6rem);
+    line-height:1;letter-spacing:-.01em;
+  }
+  .whats__card h3 em{font-style:italic;color:var(--vault)}
+  .whats__card p{color:var(--ink-soft);font-size:.96rem}
+  .whats__time{
+    margin-top:auto;padding-top:1.2rem;border-top:1px solid var(--rule);
+    font-family:var(--body);font-size:.78rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--ink);font-weight:500;
+  }
+
+  /* ─── HERITAGE STORY ───── */
+  .story{background:var(--ink);color:var(--paper);position:relative;overflow:hidden}
+  .story::before{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(70% 90% at 100% 0%, rgba(176,130,64,.18), transparent 60%),
+      radial-gradient(60% 90% at 0% 100%, rgba(36,58,46,.55), transparent 65%);
+    pointer-events:none;
+  }
+  .story .eyebrow{color:var(--brass-bright)}
+  .story h2.section__title{color:var(--paper)}
+  .story h2.section__title em{color:var(--brass-bright)}
+  .story__grid{display:grid;grid-template-columns:1fr;gap:clamp(32px,4vw,64px);position:relative}
+  @media (min-width:900px){.story__grid{grid-template-columns:1.05fr .95fr}}
+  .story__copy{font-size:1.05rem;line-height:1.7;color:rgba(242,234,218,.86)}
+  .story__copy p + p{margin-top:1.05em}
+  .story__copy strong{color:var(--paper);font-weight:500;font-family:var(--display);font-size:1.18em;letter-spacing:.01em}
+  .story__plate{
+    border:1px solid rgba(242,234,218,.16);
+    padding:clamp(28px,3vw,44px);
+    position:relative;
+    background:linear-gradient(180deg, rgba(242,234,218,.025), transparent);
+  }
+  .story__plate::before,.story__plate::after{
+    content:"";position:absolute;width:18px;height:18px;border:1px solid var(--brass);
+  }
+  .story__plate::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+  .story__plate::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+  .story__plate h3{
+    font-size:.78rem;font-family:var(--body);font-weight:500;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--brass-bright);margin-bottom:1.6rem;
+  }
+  .story__list{list-style:none;display:flex;flex-direction:column;gap:1.1rem}
+  .story__list li{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:baseline}
+  .story__list li span:first-child{
+    font-family:var(--display);font-style:italic;color:var(--brass-bright);
+    font-size:1.4rem;line-height:1;min-width:3ch;
+  }
+  .story__list li span:last-child{color:rgba(242,234,218,.86);font-size:1rem;line-height:1.45}
+
+  /* ─── MENU SAMPLE ─── */
+  .menu{}
+  .menu__grid{display:grid;grid-template-columns:1fr;gap:clamp(36px,4vw,64px)}
+  @media (min-width:860px){.menu__grid{grid-template-columns:1fr 1fr}}
+  .menu__col h3{
+    font-size:clamp(1.4rem,1.6vw + .5rem,2rem);
+    margin-bottom:1.2rem;border-bottom:1px solid var(--brass);padding-bottom:.6rem;
+    display:flex;justify-content:space-between;align-items:baseline;
+  }
+  .menu__col h3 small{font-family:var(--body);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);font-weight:500}
+  .menu__items{list-style:none;display:flex;flex-direction:column;gap:1.05rem}
+  .menu__items li{
+    display:grid;grid-template-columns:1fr auto;gap:.6rem;align-items:baseline;
+    border-bottom:1px dotted var(--rule);padding-bottom:.95rem;
+  }
+  .menu__items li:last-child{border-bottom:0;padding-bottom:0}
+  .menu__items dt{
+    font-family:var(--display);font-size:1.18rem;line-height:1.2;
+  }
+  .menu__items dt em{font-style:italic;color:var(--vault)}
+  .menu__items dd{
+    grid-column:1 / -1;margin-top:.3rem;
+    font-size:.92rem;color:var(--ink-soft);line-height:1.5;max-width:46ch;
+  }
+  .menu__foot{
+    margin-top:clamp(36px,4vw,56px);padding-top:1.6rem;border-top:1px solid var(--rule);
+    display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:space-between;align-items:center;
+  }
+  .menu__foot p{font-size:.92rem;color:var(--ink-soft);max-width:50ch}
+
+  /* ─── VISIT ─── */
+  .visit{background:var(--paper-deep)}
+  .visit__grid{display:grid;grid-template-columns:1fr;gap:clamp(32px,3.6vw,56px)}
+  @media (min-width:860px){.visit__grid{grid-template-columns:1.05fr .95fr}}
+  .visit__hours{list-style:none;display:flex;flex-direction:column}
+  .visit__hours li{
+    display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;gap:1rem;
+    padding:1rem 0;border-bottom:1px solid var(--rule);
+    font-family:var(--display);font-size:clamp(1.1rem,.8vw + .8rem,1.45rem);
+  }
+  .visit__hours li:first-child{border-top:1px solid var(--rule)}
+  .visit__hours li span:first-child{min-width:10ch}
+  .visit__hours li i{font-style:normal;border-bottom:1px dotted var(--rule);height:.5em;align-self:end}
+  .visit__hours li em{font-style:italic;color:var(--vault);text-align:right}
+  .visit__where{font-size:1.02rem;line-height:1.7;color:var(--ink-soft)}
+  .visit__addr{
+    font-family:var(--display);font-size:clamp(1.4rem,1.6vw + .5rem,1.95rem);
+    line-height:1.2;color:var(--ink);margin-bottom:1.2rem;
+  }
+  .visit__addr em{font-style:italic;color:var(--vault)}
+  .visit__pill{
+    display:inline-flex;align-items:center;gap:.55rem;
+    background:var(--ink);color:var(--paper);
+    padding:.55rem 1rem .5rem;border-radius:999px;
+    font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;
+    margin-bottom:1.4rem;
+  }
+  .visit__pill::before{content:"";width:6px;height:6px;background:var(--brass-bright);border-radius:50%}
+
+  /* ─── BOOK STRIP ─── */
+  .book{
+    background:var(--vault);color:var(--paper);
+    padding:clamp(60px,7vw,110px) 0;
+    position:relative;z-index:2;overflow:hidden;
+  }
+  .book::before{
+    content:"BANCO BANCO BANCO BANCO";
+    position:absolute;inset:auto -10% -45% -10%;
+    font-family:var(--display);font-size:clamp(8rem,18vw,22rem);
+    line-height:.8;letter-spacing:-.05em;
+    color:rgba(242,234,218,.05);
+    white-space:nowrap;pointer-events:none;
+  }
+  .book__inner{display:grid;grid-template-columns:1fr;gap:1.5rem;align-items:end;position:relative}
+  @media (min-width:860px){.book__inner{grid-template-columns:1fr auto}}
+  .book h2{
+    font-family:var(--display);
+    font-size:clamp(2.6rem,5vw + .5rem,5.6rem);
+    line-height:.95;letter-spacing:-.025em;max-width:18ch;
+  }
+  .book h2 em{font-style:italic;color:var(--brass-bright)}
+  .book .btn{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+  .book .btn:hover{background:var(--brass-bright);border-color:var(--brass-bright);color:var(--ink)}
+
+  /* ─── FOOTER ─── */
+  footer{
+    background:var(--ink);color:var(--paper);
+    padding:clamp(48px,5vw,72px) 0 clamp(24px,3vw,40px);
+    position:relative;z-index:2;
+  }
+  .foot__grid{display:grid;grid-template-columns:1fr;gap:clamp(28px,3vw,48px)}
+  @media (min-width:780px){.foot__grid{grid-template-columns:1.3fr 1fr 1fr}}
+  .foot__mark{
+    font-family:var(--display);font-size:clamp(2.4rem,4vw + .5rem,4rem);
+    line-height:.9;letter-spacing:-.02em;margin-bottom:1rem;
+  }
+  .foot__mark span{font-style:italic;color:var(--brass-bright);font-size:.55em;display:block;margin-top:.4em;letter-spacing:.02em}
+  .foot__about{color:rgba(242,234,218,.7);max-width:38ch;font-size:.95rem;line-height:1.65}
+  .foot h4{
+    font-family:var(--body);font-size:.78rem;font-weight:500;
+    letter-spacing:.22em;text-transform:uppercase;color:var(--brass-bright);
+    margin-bottom:1.1rem;
+  }
+  .foot ul{list-style:none;display:flex;flex-direction:column;gap:.55rem;font-size:.98rem;color:rgba(242,234,218,.82)}
+  .foot a{transition:color .25s ease}
+  .foot a:hover{color:var(--brass-bright)}
+  .foot__rule{height:1px;background:rgba(242,234,218,.15);margin:clamp(36px,4vw,56px) 0 1.4rem}
+  .foot__base{
+    display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;
+    font-size:.78rem;letter-spacing:.06em;color:rgba(242,234,218,.55);
+  }
+
+  /* ─── REVEALS ─── */
+  @supports (animation-timeline:view()){
+    .reveal{animation:rise both;animation-timeline:view();animation-range:entry 0% cover 28%}
+    @keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+  }
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <nav class="nav" aria-label="Primary">
+    <a class="nav__mark" href="#top">Banco<sup>Café &amp; Bistro</sup></a>
+    <div class="nav__links">
+      <a href="#whats-on">What's on</a>
+      <a href="#story">The bank</a>
+      <a href="#menu">Menu</a>
+      <a href="#visit">Visit</a>
+    </div>
+    <a class="nav__call" href="tel:+441302812816">01302 812 816</a>
+  </nav>
+</header>
+
+<aside class="status" aria-live="polite">
+  <span class="status__dot"></span>
+  <span id="status-text">Open today · 9 — 4</span>
+</aside>
+
+<main id="top" class="wrap">
+
+  <!-- HERO ─────────── -->
+  <section class="hero">
+    <div class="hero__line">
+      <span><i class="pip"></i>Doncaster · DN1</span>
+      <span>Established in a bank · St Sepulchre Gate</span>
+    </div>
+
+    <h1 class="hero__masthead">Ban<em>co</em>.</h1>
+
+    <div class="hero__rule"><span>Café &amp; Bistro</span></div>
+
+    <div class="hero__grid">
+      <p class="hero__lede">
+        A Victorian bank, now Doncaster's drawing-room for <em>brunch, afternoon tea</em> and cocktails by candlelight.
+      </p>
+      <div class="hero__col">
+        <p>The doors are heavy, the ceilings are high, and the menu changes with the season. Pull up a chair under the cornicing — we'll bring the coffee.</p>
+        <div class="hero__cta">
+          <a class="btn" href="#book">Make a booking <span class="arr">→</span></a>
+          <a class="btn btn--ghost" href="#menu">See the menu</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- TICKER ─────────── -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <span>Afternoon tea, daily from 1pm <i>✦</i></span>
+    <span>Brunch served 'til four <i>✦</i></span>
+    <span>Cocktails by candlelight <i>✦</i></span>
+    <span>Reservations recommended <i>✦</i></span>
+    <span>Inside a Victorian bank <i>✦</i></span>
+    <span>15 St Sepulchre Gate · DN1 <i>✦</i></span>
+    <!-- duplicated for seamless loop -->
+    <span>Afternoon tea, daily from 1pm <i>✦</i></span>
+    <span>Brunch served 'til four <i>✦</i></span>
+    <span>Cocktails by candlelight <i>✦</i></span>
+    <span>Reservations recommended <i>✦</i></span>
+    <span>Inside a Victorian bank <i>✦</i></span>
+    <span>15 St Sepulchre Gate · DN1 <i>✦</i></span>
+  </div>
+</div>
+
+<!-- WHAT'S ON ─────────── -->
+<section class="whats wrap reveal" id="whats-on">
+  <div class="whats__intro">
+    <div>
+      <span class="eyebrow">What's on</span>
+      <h2 class="section__title">Three reasons to <em>pull up a chair</em>.</h2>
+    </div>
+    <p>We do three things, properly. Brunch that earns its salt, an afternoon tea built around scones from our own kitchen, and a short, sharp cocktail list once the sun starts behaving.</p>
+  </div>
+
+  <div class="whats__grid">
+    <article class="whats__card">
+      <span class="whats__num">— 01 —</span>
+      <h3>The <em>brunch</em>.</h3>
+      <p>Pancakes, gourmet burgers, salads, wraps, and proper coffee. Served all day until close.</p>
+      <span class="whats__time">9am — 4pm · Mon to Sat</span>
+    </article>
+    <article class="whats__card">
+      <span class="whats__num">— 02 —</span>
+      <h3><em>Afternoon</em> tea.</h3>
+      <p>Hand-crafted sandwiches, scones with clotted cream, sweet treats, and a pot of something proper.</p>
+      <span class="whats__time">Daily from 1pm · Book ahead</span>
+    </article>
+    <article class="whats__card">
+      <span class="whats__num">— 03 —</span>
+      <h3>The <em>bar</em>.</h3>
+      <p>Handcrafted cocktails, beers, ciders, wines, and iced coffee for the warmer end of the afternoon.</p>
+      <span class="whats__time">Walk-in welcome</span>
+    </article>
+  </div>
+</section>
+
+<!-- STORY ─────────── -->
+<section class="story reveal" id="story">
+  <div class="wrap">
+    <span class="eyebrow">Building no. 15</span>
+    <h2 class="section__title">From counting-house to <em>café</em>.</h2>
+
+    <div class="story__grid">
+      <div class="story__copy">
+        <p><strong>"Banco" is the old word for bank.</strong></p>
+        <p>Number 15 St Sepulchre Gate has been many things — but for most of its life, it was where Doncaster came to deposit, withdraw, and quietly sign for things on heavy paper. The ledgers are gone. The high ceilings, the cornicing, and the architectural details that made the building feel important in the first place are not.</p>
+        <p>We kept what we could and added what a café needs: long tables for slow brunches, a counter that smells of coffee, and a bar that comes alive in the late afternoon. The result is a room that still feels a bit ceremonial — only now you can order pancakes in it.</p>
+        <p>It's a place to bring your mum, your dog, your boss, and your worst friend, in roughly that order. Doncaster, DN1. Permanent fixtures since the day we opened.</p>
+      </div>
+
+      <aside class="story__plate" aria-label="House notes">
+        <h3>House notes</h3>
+        <ul class="story__list">
+          <li><span>01</span><span>Coffee made by people who know what they're doing.</span></li>
+          <li><span>02</span><span>Afternoon tea reservations: phone the room, not a chatbot.</span></li>
+          <li><span>03</span><span>Cakes baked here, in this building, this week.</span></li>
+          <li><span>04</span><span>The original bank vault is still downstairs. Ask nicely.</span></li>
+          <li><span>05</span><span>Dogs welcome on the lower floor. Children welcome everywhere.</span></li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- MENU ─────────── -->
+<section class="menu wrap reveal" id="menu">
+  <span class="eyebrow">A taste of it</span>
+  <h2 class="section__title">The <em>menu</em>, in brief.</h2>
+
+  <div class="menu__grid">
+    <div class="menu__col">
+      <h3>Brunch <small>9 — 4 daily</small></h3>
+      <ul class="menu__items">
+        <li><dt>Stack of <em>pancakes</em></dt>
+            <dd>Buttermilk, maple, fresh berries. Bacon on the side, if you must.</dd></li>
+        <li><dt><em>Gourmet</em> burger</dt>
+            <dd>House beef, smoked cheese, brioche, skin-on chips.</dd></li>
+        <li><dt>Wraps &amp; <em>sandwiches</em></dt>
+            <dd>Made to order, on bread that wasn't made yesterday.</dd></li>
+        <li><dt>Seasonal <em>salads</em></dt>
+            <dd>Greens, grains, something pickled, dressing on the side.</dd></li>
+        <li><dt><em>Iced</em> coffee &amp; smoothies</dt>
+            <dd>Cold-brew with proper milk. Smoothies for the optimists.</dd></li>
+      </ul>
+    </div>
+
+    <div class="menu__col">
+      <h3>Afternoon tea <small>From 1pm · book ahead</small></h3>
+      <ul class="menu__items">
+        <li><dt>Hand-crafted <em>sandwiches</em></dt>
+            <dd>Cucumber, smoked salmon, ham &amp; mustard, egg mayonnaise.</dd></li>
+        <li><dt><em>Scones</em></dt>
+            <dd>Warm, with clotted cream and our own jam. Plain or fruit.</dd></li>
+        <li><dt><em>Sweet</em> treats</dt>
+            <dd>Whatever the kitchen has been busy with this morning.</dd></li>
+        <li><dt>Pot of <em>tea</em></dt>
+            <dd>A small library of leaves. Or coffee, if you're a coffee person.</dd></li>
+        <li><dt><em>Cocktail</em> upgrade</dt>
+            <dd>Add a glass of fizz, or a proper cocktail from the bar.</dd></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="menu__foot">
+    <p>The full menu lives on the counter, changes by the season, and is best read with a flat white in hand.</p>
+    <a class="btn" href="#book">Reserve a table <span class="arr">→</span></a>
+  </div>
+</section>
+
+<!-- VISIT ─────────── -->
+<section class="visit reveal" id="visit">
+  <div class="wrap">
+    <div class="visit__grid">
+      <div>
+        <span class="eyebrow">Hours</span>
+        <h2 class="section__title">Open <em>most</em> of the daylight.</h2>
+        <ul class="visit__hours">
+          <li><span>Monday</span><i></i><em>9 — 4</em></li>
+          <li><span>Tuesday</span><i></i><em>9 — 4</em></li>
+          <li><span>Wednesday</span><i></i><em>9 — 4</em></li>
+          <li><span>Thursday</span><i></i><em>9 — 4</em></li>
+          <li><span>Friday</span><i></i><em>9 — 4</em></li>
+          <li><span>Saturday</span><i></i><em>9 — 4</em></li>
+          <li><span>Sunday</span><i></i><em>10 — 4</em></li>
+        </ul>
+      </div>
+
+      <div>
+        <span class="visit__pill">Find us</span>
+        <p class="visit__addr">15 St Sepulchre Gate<br><em>Doncaster · DN1 1TF</em></p>
+        <p class="visit__where">
+          Two minutes from Doncaster station, on the corner where the high street meets St Sepulchre Gate. Look for the brass plaque and the old bank façade — the door is heavier than you'd expect.
+        </p>
+        <div class="hero__cta" style="margin-top:1.4rem">
+          <a class="btn" href="tel:+441302812816">Call 01302 812 816</a>
+          <a class="btn btn--ghost" href="https://www.google.com/maps/search/?api=1&query=15+St+Sepulchre+Gate+Doncaster+DN1+1TF" target="_blank" rel="noopener">Open in maps</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOK STRIP ─────────── -->
+<section class="book" id="book">
+  <div class="wrap book__inner">
+    <h2>A table for <em>two</em>, four, or the whole afternoon?</h2>
+    <a class="btn" href="tel:+441302812816">Phone the room <span class="arr">→</span></a>
+  </div>
+</section>
+
+<!-- FOOTER ─────────── -->
+<footer>
+  <div class="wrap">
+    <div class="foot__grid">
+      <div>
+        <p class="foot__mark">Banco<span>Café &amp; Bistro · Doncaster</span></p>
+        <p class="foot__about">A historic bank repurposed as a brunch room, an afternoon-tea spot, and a quietly-good cocktail bar. Right in the centre of Doncaster.</p>
+      </div>
+
+      <div class="foot">
+        <h4>Find us</h4>
+        <ul>
+          <li>15 St Sepulchre Gate</li>
+          <li>Doncaster · DN1 1TF</li>
+          <li><a href="tel:+441302812816">01302 812 816</a></li>
+          <li><a href="https://www.google.com/maps/search/?api=1&query=15+St+Sepulchre+Gate+Doncaster+DN1+1TF" target="_blank" rel="noopener">Directions →</a></li>
+        </ul>
+      </div>
+
+      <div class="foot">
+        <h4>Elsewhere</h4>
+        <ul>
+          <li><a href="https://www.instagram.com/bancocoffeeco/" target="_blank" rel="noopener">Instagram →</a></li>
+          <li><a href="https://www.facebook.com/p/Banco-Coffee-Co-100093972977033/" target="_blank" rel="noopener">Facebook →</a></li>
+          <li><a href="#whats-on">What's on this week</a></li>
+          <li><a href="#book">Make a booking</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot__rule"></div>
+    <div class="foot__base">
+      <span>© Banco Café &amp; Bistro · Doncaster</span>
+      <span>Building no. 15 · since the Victorians</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Tiny enhancement: live open/closed pill based on local time.
+  (function(){
+    var el = document.getElementById('status-text');
+    if(!el) return;
+    var now = new Date();
+    var day = now.getDay();        // 0 Sun … 6 Sat
+    var hr  = now.getHours() + now.getMinutes()/60;
+    var open = day === 0 ? 10 : 9;
+    var close = 16;
+    var names = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    if(hr >= open && hr < close){
+      el.textContent = 'Open today · ' + open + ' — 4';
+    } else if (hr < open){
+      el.textContent = 'Opens at ' + open + ' today';
+    } else {
+      var nextDay = (day + 1) % 7;
+      var nextOpen = nextDay === 0 ? 10 : 9;
+      el.textContent = 'Closed · opens ' + nextOpen + ' ' + names[nextDay];
+    }
+  })();
+</script>
+
+</body>
+</html>
